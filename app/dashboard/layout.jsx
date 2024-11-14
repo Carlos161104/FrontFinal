@@ -3,11 +3,11 @@ import Headers from "./_components/Headers";
 
 const layoutDashboard = ({ children }) => {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden h-full">
       <Headers />
-      <div className="flex flex-row items-center ">
+      <div className="flex flex-row h-full">
         <Sidebar />
-        {children}
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   );
