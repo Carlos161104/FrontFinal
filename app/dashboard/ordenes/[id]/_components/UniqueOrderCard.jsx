@@ -1,23 +1,19 @@
-"use client";
-
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Divider,
   Link,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
 } from "@nextui-org/react";
 import ModalClient from "./ModalClient";
+import FormClient from "./FormClient";
+import FormAddress from "./FormAddress";
+import ModalAddress from "./ModalAddress";
 
 const UniqueOrderCard = ({ order, products }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const clientid = order.client_id;
+  const addid = order.address_id;
 
   return (
     <Card className="bg-white rounded-lg p-10">
@@ -25,7 +21,7 @@ const UniqueOrderCard = ({ order, products }) => {
         <h1>Id: {order.id}</h1>
       </CardHeader>
       <Divider />
-      <CardBody className="text-lg text-left py-2 px-5">
+      <CardBody className="text-lg text-left py-2 px-5 flex-row">
         <div>
           <p>
             Monto: <b>${order.cost}</b>
@@ -43,9 +39,13 @@ const UniqueOrderCard = ({ order, products }) => {
             Desgloce de orden
           </Link>
         </div>
-        <div>
-          <Button onClick={onOpen}>Open Modal</Button>
-          
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <ModalClient>
+            <FormClient clientid={clientid} />
+          </ModalClient>
+          <ModalAddress>
+            <FormAddress addid={addid} />
+          </ModalAddress>
         </div>
       </CardBody>
       <Divider />

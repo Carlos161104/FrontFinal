@@ -28,7 +28,7 @@ const layoutOrders = ({ children }) => {
         <OrderList orderList={orderList} show={show} />
       </div>
       {/* Segundo div: 7/12 del espacio restante */}
-      <div className="w-7/12 flex flex-col">
+      <div className="w-7/12 flex flex-col"> 
         <div className="h-1/6 bg-blue-400 text-black p-10">
           <FoundOrder
             orders={orders}
