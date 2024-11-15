@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 const OrderCard = ({ order }) => {
     //Llamada a la api para consultar la address segun el address_id
   return (
-    <Card className="bg-white m-5 p-5 rounded-lg">
+    <Card className="bg-white m-5 p-5 rounded-lg hover:bg-gray-100 transition-transform">
       <CardHeader>
         <h1>Id: <b>{order.id}</b></h1>
       </CardHeader>
