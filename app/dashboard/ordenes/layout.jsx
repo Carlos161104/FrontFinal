@@ -7,14 +7,14 @@ import { API_URL } from "@/constants";
 const layoutOrders = ({ children }) => {
   const [orderList, setOrderList] = useState([]);
   const [show, setShow] = useState(false);
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       const response = await fetch(`${API_URL}/orders`);
       const orders = await response.json();
       setOrderList(orders);
-      setOrders(orders)
+      setOrders(orders);
     };
 
     fetchOrders();
@@ -22,22 +22,22 @@ const layoutOrders = ({ children }) => {
 
   // Aqui lo que se tiene que hacer son las peticiones a la API para obtener las ordenes
   return (
-    <div className="flex flex-row h-full ">
-      <div className="w-1/4 g-blue-400">
+    <div className="flex flex-row h-full w-11/12">
+      {/* Primer div: 4/12 del espacio */}
+      <div className="w-4/12 h-[90vh] max-h-[90vh] overflow-hidden px-5 overflow-y-auto bg-blue-400">
         <OrderList orderList={orderList} show={show} />
       </div>
-      <div className="w-3/4 flex flex-col h-full">
-        <div className="h-1/8 w-full  overflow-hidden bg-blue-400 text-black p-10 ">
+      {/* Segundo div: 7/12 del espacio restante */}
+      <div className="w-7/12 flex flex-col">
+        <div className="h-1/6 bg-blue-400 text-black p-10">
           <FoundOrder
             orders={orders}
             setOrderList={setOrderList}
             setShow={setShow}
           />
         </div>
-        <div className="h-7/8 w-3/4 ">
-          {/* Contenido del children */}
-          {children}
-        </div>
+        {/* Eliminado el gap-10 y ajustado para que no haya espacio */}
+        <div className="h-5/6 w-full">{children}</div>
       </div>
     </div>
   );

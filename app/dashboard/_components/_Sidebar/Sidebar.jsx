@@ -8,7 +8,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <nav className="w-1/6 h-[100vh] bg-blue-700 flex flex-col items-center py-20 justify-center gap-10">
+    <nav className="flex  min-w-[8.3333%] w-1/12 h-[100vh] bg-blue-700 flex-col items-center py-20 justify-center gap-10">
       <NavItem icon={<LuHome className="text-4xl" />} path="/dashboard" />
       <NavItem
         icon={<LuListOrdered className="text-4xl" />}
