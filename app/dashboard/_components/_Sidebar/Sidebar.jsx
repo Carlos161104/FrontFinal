@@ -2,6 +2,7 @@ import NavItem from "./NavItem";
 import {
   LuAccessibility,
   LuActivity,
+  LuFolderArchive,
   LuHome,
   LuListOrdered,
 } from "react-icons/lu";
@@ -17,6 +18,10 @@ const Sidebar = () => {
       <NavItem
         icon={<LuAccessibility className="text-4xl" />}
         path="/dashboard/ejemplo"
+      />
+      <NavItem
+        icon={<LuFolderArchive className="text-4xl" />}
+        path="/dashboard/guides"
       />
     </nav>
   );
