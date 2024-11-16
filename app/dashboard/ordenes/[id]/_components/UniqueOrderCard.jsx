@@ -40,12 +40,16 @@ const UniqueOrderCard = ({ order, products }) => {
           </Link>
         </div>
         <div className="flex flex-col items-center justify-center w-full h-full">
-          <ModalClient>
-            <FormClient clientid={clientid} />
-          </ModalClient>
-          <ModalAddress>
-            <FormAddress addid={addid} />
-          </ModalAddress>
+          <div className="p-5">
+            <ModalClient>
+              <FormClient clientid={clientid} />
+            </ModalClient>
+          </div>
+          <div className="p-5">
+            <ModalAddress>
+              <FormAddress addid={addid} />
+            </ModalAddress>
+          </div>
         </div>
       </CardBody>
       <Divider />
