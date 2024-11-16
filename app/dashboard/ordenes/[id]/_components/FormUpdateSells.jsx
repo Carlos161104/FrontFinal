@@ -1,103 +1,87 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { LuPlus, LuMinus } from "react-icons/lu";
+import React, { useState, useEffect } from "react";
+import updateSells from "@/actions/sells/UpdateSells";
 import { API_URL } from "@/constants";
+import { LuMinus, LuPlus } from "react-icons/lu";
 import { Button } from "@nextui-org/react";
 
-const updateSells = async (sells) => {
-  try {
-    const response = await fetch(`${API_URL}/sells`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(sells),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error al actualizar las ventas:', error);
-    throw error;
-  }
-};
-
-const FormUpdateSells = ({ orderId, cargar }) => {
+const FormUpdateSells = ({ newOrder }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchSells = async () => {
       try {
         const response = await fetch(`${API_URL}/sells`);
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
         const sells = await response.json();
-        const filteredSells = sells.filter(sell => sell.order_id === orderId);
-        setItems(filteredSells);
+        const filteredSells = sells.filter(sell => sell.order_id === newOrder.id);
+
+        const detailedSells = await Promise.all(
+          filteredSells.map(async (sell) => {
+            const productResponse = await fetch(`${API_URL}/products/${sell.product_id}`);
+            const productData = await productResponse.json();
+            const product = productData.data;
+
+            return {
+              id: sell.id,
+              quantity: sell.quantity,
+              name: product.name,
+              product_id: sell.product_id,
+              order_id: sell.order_id,
+              pending_quantity: sell.pending_quantity,
+            };
+          })
+        );
+
+        setItems(detailedSells);
       } catch (error) {
-        console.error("Error al obtener las ventas:", error);
+        console.error("Error fetching sells:", error);
       }
     };
 
     fetchSells();
-  }, [orderId]);
-
-  useEffect(() => {
-    const fetchProductNames = async () => {
-      const newItems = await Promise.all(items.map(async (item) => {
-        if (item.product_id) {
-          try {
-            const response = await fetch(`${API_URL}/products/${item.product_id}`);
-            if (!response.ok) {
-              throw new Error(`Error en la solicitud: ${response.statusText}`);
-            }
-            const product = await response.json();
-            return { ...item, name: product.name };
-          } catch (error) {
-            console.error(`Error al obtener el nombre del producto ${item.product_id}:`, error);
-            return item;
-          }
-        }
-        return item;
-      }));
-      setItems(newItems);
-    };
-
-    fetchProductNames();
-  }, [items]);
+  }, [newOrder.id]);
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
     const newItems = [...items];
     newItems[index][name] = value;
-    setItems(newItems);
-  };
 
-  const addItem = () => {
-    setItems([...items, { id: "", quantity: "", name: "", product_id: "" }]);
-  };
-
-  const removeItem = (index) => {
-    const newItems = items.filter((_, i) => i !== index);
-    setItems(newItems);
-  };
-
-  const handleSubmit = async () => {
-    try {
-      await updateSells(items);
-    } catch (error) {
-      console.error('Error al actualizar las ventas');
+    if (name === "product_id" && value) {
+      fetch(`${API_URL}/products/${value}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data && data.data && data.data.name) {
+            newItems[index].name = data.data.name;
+          } else {
+            newItems[index].name = "";
+          }
+          setItems(newItems);
+        })
+        .catch((error) => {
+          console.error("Error fetching product:", error);
+          newItems[index].name = "";
+          setItems(newItems);
+        });
+    } else {
+      setItems(newItems);
     }
   };
 
+  const addItem = () => {
+    setItems([...items, { id: "", quantity: "", name: ""}]);
+  };
+
+  const handleSubmit = () => {
+    updateSells(items);
+  };
+
   return (
-    <div className="py-5">
-        <h1 className="text-center text-2xl">Lista de productos</h1>
+    <div className="space-y-4">
+      <h1 className="text-center text-xl">Listado de productos</h1>
       {items.map((item, index) => (
         <div key={index} className="flex items-center space-x-4 mb-2">
           <input
@@ -138,11 +122,10 @@ const FormUpdateSells = ({ orderId, cargar }) => {
         </div>
       ))}
       <Button
-        disabled={!cargar}
         onPress={handleSubmit}
-        className="bg-blue-400 text-white p-2 rounded hover:bg-blue-600"
+        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
       >
-        Cargar productos
+        Editar lista
       </Button>
     </div>
   );

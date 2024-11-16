@@ -55,7 +55,7 @@ const FormUpdateOrder = ({ order }) => {
     updateOrder(orderData);
     
   };
-  const orderId = order.id
+  const newOrder = order
 
   return (
     <div className="overflow-auto p-10 bg-blue-700 rounded-lg ">
@@ -159,7 +159,7 @@ const FormUpdateOrder = ({ order }) => {
         </Button>
         </div>
       </form>
-      <FormUpdateSells orderId={orderId} />
+      <FormUpdateSells newOrder={newOrder} />
     </div>
   );
 };
