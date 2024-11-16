@@ -15,7 +15,7 @@ export default function ModalClient({ children }) {
   };
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       <Button onPress={handleButtonClick} className="bg-slate-500 rounded-lg w-40">
         Cliente
       </Button>

@@ -4,7 +4,6 @@ import {
   ModalBody,
   Button,
   useDisclosure,
-  ModalFooter,
 } from "@nextui-org/react";
 
 export default function ModalAddress({ children }) {
@@ -15,7 +14,7 @@ export default function ModalAddress({ children }) {
   };
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       <Button onPress={handleButtonClick} className="bg-slate-500 rounded-lg w-40">
         Direccion
       </Button>
