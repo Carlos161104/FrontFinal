@@ -22,7 +22,7 @@ const layoutOrders = ({ children }) => {
 
   // Aqui lo que se tiene que hacer son las peticiones a la API para obtener las ordenes
   return (
-    <div className="flex flex-row h-full w-11/12">
+    <div className="flex flex-row h-full w-11/12 w-[92vw]">
       {/* Primer div: 4/12 del espacio */}
       <div className="w-4/12 h-[90vh] max-h-[90vh] overflow-hidden px-5 overflow-y-auto bg-blue-400">
         <OrderList orderList={orderList} show={show} />
