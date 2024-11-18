@@ -9,7 +9,7 @@ const OrderCard = ({ order }) => {
         <h1>Id: <b>{order.id}</b></h1>
       </CardHeader>
       <Divider />
-      <CardBody>
+      <CardBody className="felx flex-col">
         <p>Id del cliente: <b>{order.client_id}</b></p>
         <p>Monto de la orden: <b>${order.cost}</b></p>
       </CardBody>
