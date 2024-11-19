@@ -82,7 +82,7 @@ const FormNewClient = () => {
         isRequired
         label="Telefono"
         value={client.phone || ""}
-        placeholder="Ej. 5565090525"
+        placeholder="Ej. el sin-chi"
         name="phone"
         onChange={handleChange}
       />
