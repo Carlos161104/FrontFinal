@@ -1,14 +1,14 @@
 import { API_URL } from "@/constants";
 
-export async function createProduct(client) {
-  console.log(client);
+export async function createProduct(product) {
+  console.log(product);
   try {
     const response = await fetch(`${API_URL}/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(client),
+      body: JSON.stringify(product),
     });
 
     if (!response.ok) {

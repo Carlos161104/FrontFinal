@@ -1,59 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { Input, Select, SelectItem, Button } from "@nextui-org/react";
-import UpdateClient from "@/actions/clients/UpdateClient";
-import fetchClient from "@/actions/clients/GetClientById";
+"use client";
 
-const salesFunnels = {
-    1: "Mercadolibre",
-    2: "Shopify",
-    3: "Facebook",
-    4: "Instagram",
-    5: "Marketplace Facebook",
-    6: "Marketplace Instagram",
-    7: "Venta directa",
+import React, { useState } from "react";
+import { Input, Select, SelectItem, Button } from "@nextui-org/react";
+import { createProduct } from "@/actions/products/createProduct";
+
+const category_id = {
+    1: "Accesorios para vehículos",
+    2: "Agro",
+    3: "Alimentos y Bebidas",
+    4: "Animales y Mascotas",
+    5: "Antigüedades y Colecciones",
+    6: "Arte, Papelería y Mercería"
 };
 
-const FormCreateProduct = ({ clientid }) => {
-    const [client, setClient] = useState({});
-    const [loading, setLoading] = useState(true);
+const FormCreateProduct = () => {
+    const [product, setProduct] = useState({});
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const getClientData = async () => {
-            try {
-                const clientData = await fetchClient(clientid);
-                setClient(clientData);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        getClientData();
-    }, [clientid]);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-
+  
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setClient((prevClient) => ({
-            ...prevClient,
-            [name]: value,
-        }));
+      const { name, value } = e.target;
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: value,
+      }));
     };
-
+  
     const handleSelectChange = (selectedKeys) => {
-        setClient((prevClient) => ({
-            ...prevClient,
-            sales_funnel_id: selectedKeys.anchorKey,
-        }));
+        setProduct((prevProduct) => ({
+        ...prevProduct,
+        sales_funnel_id: selectedKeys.anchorKey,
+      }));
     };
-
+  
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        await UpdateClient(client);
+      e.preventDefault();
+      try {
+        await createProduct(product);
+        alert("Producto creado exitosamente");
+      } catch (err) {
+        setError(err.message);
+      }
     };
 
     return (
@@ -68,7 +54,7 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="Nombre"
-                value={client.name || ""}
+                value={product.name || ""}
                 placeholder="Ej. Leche"
                 name="name"
                 onChange={handleChange}
@@ -77,7 +63,7 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="Precio"
-                value={client.last_name || ""}
+                value={product.price || ""}
                 placeholder="Ej. 12.00"
                 name="price"
                 onChange={handleChange}
@@ -86,7 +72,7 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="Descripción"
-                value={client.email || ""}
+                value={product.description || ""}
                 placeholder="Ej. Leche 1L"
                 name="description"
                 onChange={handleChange}
@@ -95,7 +81,7 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="Descripción técnica"
-                value={client.phone || ""}
+                value={product.technical_description || ""}
                 placeholder="Detalles especificos del prod"
                 name="technical_description"
                 onChange={handleChange}
@@ -104,7 +90,7 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="Id del SAT"
-                value={client.company || ""}
+                value={product.sat_key || ""}
                 placeholder="Ej. 4352342"
                 name="sat_key"
                 onChange={handleChange}
@@ -113,19 +99,19 @@ const FormCreateProduct = ({ clientid }) => {
                 required={true}
                 isRequired
                 label="URL de ficha tecnica"
-                value={client.company || ""}
+                value={product.data_sheet || ""}
                 placeholder="Ej. https://data.com"
                 name="data_sheet"
                 onChange={handleChange}
             />
             <Select
-                label="Canal de venta"
-                name="sales_funnel_id"
-                selectedKeys={client.sales_funnel_id ? [client.sales_funnel_id] : []}
+                label="Categoría"
+                name="category_id"
+                selectedKeys={product.category_id ? [product.category_id] : []}
                 onSelectionChange={handleSelectChange}
                 className="bg-white rounded-lg"
             >
-                {Object.entries(salesFunnels).map(([key, value]) => (
+                {Object.entries(category_id).map(([key, value]) => (
                     <SelectItem
                         key={key}
                         className="bg-white rounded-lg hover:cursor-pointer"
@@ -136,7 +122,7 @@ const FormCreateProduct = ({ clientid }) => {
             </Select>
 
             <Button className="bg-green-300 rounded-lg" type="submit">
-                Actualizar
+                Añadir
             </Button>
         </form>
     );
