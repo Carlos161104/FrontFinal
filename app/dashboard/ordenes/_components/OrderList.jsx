@@ -4,7 +4,7 @@ import OrderCard from "./OrderCard";
 const OrderList = ({ orderList, show }) => {
   return (
     <div>
-      <h1 className="w-7/12 flex flex-col items-center justify-center gap-10 text-center text-xl py-10">
+      <h1 className=" flex flex-col items-center justify-center gap-10 text-center text-3xl py-10">
         Listado de ordenes
       </h1>
       {show &&

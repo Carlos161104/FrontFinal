@@ -16,7 +16,7 @@ import { LuPen } from "react-icons/lu";
   
     return (
       <div>
-        <Button onPress={handleButtonClick} className="bg-slate-500 p-2 rounded-lg">
+        <Button onPress={handleButtonClick} className="bg-slate-500 mx-5 p-2 rounded-lg">
           <LuPen className="text-3xl" />
         </Button>
         <Modal

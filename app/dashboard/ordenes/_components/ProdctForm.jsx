@@ -1,18 +1,27 @@
 import createSells from "@/actions/sells/CreateSells";
 import { API_URL } from "@/constants";
 import { Button } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuPlus } from "react-icons/lu"; // Asegúrate de instalar react-icons
 import { LuMinus } from "react-icons/lu"; // Importa el icono de menos
 
 const ProductForm = ({ newOrder, cargar }) => {
+  const [disabled, setDisabled] = useState(false);
   const [items, setItems] = useState([
     {
       id: "",
       quantity: "",
-      name: ""
+      name: "",
     },
   ]);
+
+  useEffect(() => {
+    if (items.length === 1) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [items]);
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
@@ -53,7 +62,7 @@ const ProductForm = ({ newOrder, cargar }) => {
   };
 
   const addItem = () => {
-    setItems([...items, { id: "", quantity: "", name: ""}]);
+    setItems([...items, { id: "", quantity: "", name: "" }]);
   };
 
   const removeItem = (index) => {
@@ -63,11 +72,11 @@ const ProductForm = ({ newOrder, cargar }) => {
 
   const handleSubmit = () => {
     // Aquí puedes manejar el envío de datos a la API
-    createSells(items, newOrder)
+    createSells(items, newOrder);
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 my-10">
       <h1 className="text-center text-xl">Listado de productos</h1>
       {items.map((item, index) => (
         <div key={index} className="flex items-center space-x-4 mb-2">
@@ -93,6 +102,7 @@ const ProductForm = ({ newOrder, cargar }) => {
             {item.name || "Articulo"}
           </span>
           <button
+            disabled={disabled}
             type="button"
             onClick={() => removeItem(index)}
             className="text-red-500 hover:bg-red-100 p-2 rounded"

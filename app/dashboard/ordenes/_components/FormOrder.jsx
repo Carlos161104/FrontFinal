@@ -74,8 +74,7 @@ const FormOrder = () => {
     <div className="space-y-4 max-h-96 overflow-y-auto px-10">
       <form onSubmit={handleSubmit} className="space-y-4 max-h-96 px-10">
         <h1 className="text-2xl">Crear una nueva orden</h1>
-        <Input
-          clearable
+        <input
           underlined
           placeholder="Monto"
           type="number"
@@ -83,13 +82,13 @@ const FormOrder = () => {
           required
           value={cost}
           onChange={(e) => setCost(e.target.value)}
-          className="rounded-lg"
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
 
         <Select
-          label="Canal de venta"
+          placeholder="Canal de venta"
           name="sales_funnel_id"
-          className="bg-white rounded-lg"
+          className="bg-white rounded-lg p-3"
           onSelectionChange={(keys) => setSalesFunnelId(keys.anchorKey)}
           required
         >
@@ -105,9 +104,9 @@ const FormOrder = () => {
         </Select>
 
         <Select
-          label="Método de pago"
+          placeholder="Método de pago"
           name="payment_method_id"
-          className="bg-white rounded-lg"
+          className="bg-white rounded-lg p-3"
           onSelectionChange={(keys) => setPaymentMethodId(keys.anchorKey)}
           required
         >
@@ -123,15 +122,14 @@ const FormOrder = () => {
         </Select>
 
         <div className="flex flex-row justify-between items-end">
-          <Input
-            clearable
+          <input
             underlined
             placeholder="Id del cliente"
             type="number"
             required
             value={clientId}
             onChange={(e) => setClientId(e.target.value)}
-            className="rounded-lg"
+            className="border border-gray-300 p-2 rounded w-full mr-3"
           />
 
           <ModalClient>
@@ -140,36 +138,34 @@ const FormOrder = () => {
         </div>
 
         <div className="flex flex-row justify-between items-end">
-          <Input
-            clearable
+          <input
             underlined
             placeholder="Id de la dirección"
             type="number"
             required
             value={addressId}
             onChange={(e) => setAddressId(e.target.value)}
-            className="rounded-lg"
+            className="border border-gray-300 p-2 rounded w-full mr-3"
           />
           <ModalAddress>
             <FormNewAddress />
           </ModalAddress>
         </div>
 
-        <Input
-          clearable
+        <input
           underlined
           placeholder="Link documentación"
           type="text"
           value={orderPdf}
           onChange={(e) => setOrderPdf(e.target.value)}
-          className="rounded-lg"
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
 
-        <Button type="submit" className="bg-green-500">
+        <Button type="submit" className="bg-green-500 rounded-lg">
           Submit
         </Button>
       </form>
-      <div className="py-14">
+      <div className="py-14 my-30">
         <ProductForm
           newOrder={newOrder}
           cargar={cargar}
