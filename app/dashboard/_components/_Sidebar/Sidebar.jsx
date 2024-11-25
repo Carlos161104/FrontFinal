@@ -24,6 +24,10 @@ const Sidebar = () => {
         icon={<LuFolderArchive className="text-4xl" />}
         path="/dashboard/guides"
       />
+      <NavItem
+        icon={<LuDollarSign className="text-4xl" />}
+        path="/dashboard/cotizaciones"
+      />
     </nav>
   );
 };
