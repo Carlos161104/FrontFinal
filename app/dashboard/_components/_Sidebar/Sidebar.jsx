@@ -1,7 +1,5 @@
 import NavItem from "./NavItem";
 import {
-  LuAccessibility,
-  LuActivity,
   LuFolderArchive,
   LuApple,
   LuHome,
@@ -17,8 +15,8 @@ const Sidebar = () => {
         path="/dashboard/ordenes"
       />
       <NavItem
-        icon={<LuAccessibility className="text-4xl" />}
-        path="/dashboard/ejemplo"
+        icon={<LuApple className="text-4xl" />}
+        path="/dashboard/productos"
       />
       <NavItem
         icon={<LuFolderArchive className="text-4xl" />}

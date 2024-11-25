@@ -23,13 +23,12 @@ const FoundProduct = ({ products, setProductList, setShow }) => {
       <div className="flex flex-row items-center space-x-8 px-4 justify-center">
         <Input
           autoFocus={true}
-          label="ID de producto"
+          placeholder="ID de producto"
           type="number"
           className="w-3/8 rounded-lg"
           onChange={(e) => {
             setProduct(e.target.value);
           }}
-          placeholder="Ej.1"
         />
       </div>
     </div>

@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Input, Select, SelectItem, Button } from "@nextui-org/react";
+import { Select, SelectItem, Button } from "@nextui-org/react";
 import { createProduct } from "@/actions/products/createProduct";
-
-const category_id = {
+const categories = {
     1: "Accesorios para vehículos",
     2: "Agro",
     3: "Alimentos y Bebidas",
@@ -13,117 +12,108 @@ const category_id = {
     6: "Arte, Papelería y Mercería"
 };
 
-const FormCreateProduct = () => {
-    const [product, setProduct] = useState({});
-    const [error, setError] = useState(null);
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setProduct((prevProduct) => ({
-        ...prevProduct,
-        [name]: value,
-      }));
-    };
-  
-    const handleSelectChange = (selectedKeys) => {
-        setProduct((prevProduct) => ({
-        ...prevProduct,
-        sales_funnel_id: selectedKeys.anchorKey,
-      }));
-    };
-  
+const FormCreateProduct = ({ setProductId }) => {
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [desc, setDesc] = useState("");
+    const [tDesc, setTDes] = useState("");
+    const [sat_key, setSat] = useState("");
+    const [data_sheet, setData] = useState("");
+    const [category_id, setCat] = useState("");
+
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        await createProduct(product);
-        alert("Producto creado exitosamente");
-      } catch (err) {
-        setError(err.message);
-      }
+        e.preventDefault();
+        const product = {
+            name: name,
+            price: parseFloat(price),
+            description: desc,
+            technical_description: tDesc,
+            sat_key: sat_key,
+            data_sheet: data_sheet,
+            category_id: +category_id
+        };
+        setProductId(await createProduct(product));
     };
 
     return (
         <form
             onSubmit={handleSubmit}
-            className=" rounded-md flex flex-col "
+            className="rounded-md flex flex-col overflow-y-auto h-50"
         >
             <h1 className="text-center text-xl">
                 Crear un nuevo producto
             </h1>
-            <Input
+            <input
                 required={true}
-                isRequired
-                label="Nombre"
-                value={product.name || ""}
-                placeholder="Ej. Leche"
-                name="name"
-                onChange={handleChange}
+                placeholder="Nombre"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2"
             />
-            <Input
+            <input
                 required={true}
-                isRequired
-                label="Precio"
-                value={product.price || ""}
-                placeholder="Ej. 12.00"
+                placeholder="Precio"
+                value={price}
                 name="price"
-                onChange={handleChange}
+                type="number"
+                onChange={(e) => setPrice(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2"
             />
-            <Input
+            <input
                 required={true}
-                isRequired
-                label="Descripción"
-                value={product.description || ""}
-                placeholder="Ej. Leche 1L"
+                placeholder="Descripción"
+                value={desc}
                 name="description"
-                onChange={handleChange}
+                onChange={(e) => setDesc(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2"
             />
-            <Input
+            <textarea
                 required={true}
-                isRequired
-                label="Descripción técnica"
-                value={product.technical_description || ""}
-                placeholder="Detalles especificos del prod"
+                placeholder="Descripción técnica"
+                value={tDesc}
                 name="technical_description"
-                onChange={handleChange}
+                onChange={(e) => setTDes(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2 resize-none min-h-20"
+                
             />
-            <Input
+            <input
                 required={true}
-                isRequired
                 label="Id del SAT"
-                value={product.sat_key || ""}
+                value={sat_key}
                 placeholder="Ej. 4352342"
                 name="sat_key"
-                onChange={handleChange}
+                onChange={(e) => setSat(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2"
             />
-            <Input
+            <input
                 required={true}
-                isRequired
-                label="URL de ficha tecnica"
-                value={product.data_sheet || ""}
-                placeholder="Ej. https://data.com"
+                placeholder="URL de ficha tecnica"
+                value={data_sheet}
                 name="data_sheet"
-                onChange={handleChange}
+                onChange={(e) => setData(e.target.value)}
+                className="border border-gray-300 p-2 rounded w-full my-2"
             />
             <Select
-                label="Categoría"
-                name="category_id"
-                selectedKeys={product.category_id ? [product.category_id] : []}
-                onSelectionChange={handleSelectChange}
-                className="bg-white rounded-lg"
+                placeholder="Categoría"
+                id="categories"
+                onChange={(e) => setCat(e.target.value)}
+                className="border border-gray-300 bg-white p-2 rounded w-full my-2 items-center align-right"
             >
-                {Object.entries(category_id).map(([key, value]) => (
+                {Object.keys(categories).map((key) => (
                     <SelectItem
+                        className="bg-white hover:cursor-pointer hover:border-black hover:border-2"
                         key={key}
-                        className="bg-white rounded-lg hover:cursor-pointer"
+                        value={key}
                     >
-                        {value}
+                        {categories[key]}
                     </SelectItem>
                 ))}
             </Select>
-
-            <Button className="bg-green-300 rounded-lg" type="submit">
-                Añadir
-            </Button>
+            <div className="flex justify-center m-5">
+                <Button className="bg-green-300 rounded-lg" type="submit">
+                    Añadir
+                </Button>
+            </div>
         </form>
     );
 };

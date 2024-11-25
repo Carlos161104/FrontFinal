@@ -12,6 +12,8 @@ export default function ProductsPage() {
     const [show, setShow] = useState(false);
     const [products, setProducts] = useState([]);
 
+    const [productId, setProductId] = useState(0)
+
     useEffect(() => {
         const fetchProducts = async () => {
             const response = await fetch(`${API_URL}/products`);
@@ -39,7 +41,7 @@ export default function ProductsPage() {
                         setShow={setShow}
                     />
                     <CreateProduct>
-                        <FormCreateProduct/>
+                        <FormCreateProduct setProductId={setProductId}/>
                     </CreateProduct>
                 </div>
             </div>
