@@ -4,6 +4,7 @@ import {
   LuApple,
   LuHome,
   LuListOrdered,
+  LuDollarSign,
 } from "react-icons/lu";
 
 const Sidebar = () => {
