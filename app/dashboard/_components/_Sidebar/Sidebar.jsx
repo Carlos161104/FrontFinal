@@ -2,8 +2,8 @@ import NavItem from "./NavItem";
 import {
   LuAccessibility,
   LuActivity,
-  LuDollarSign,
   LuFolderArchive,
+  LuApple,
   LuHome,
   LuListOrdered,
 } from "react-icons/lu";
@@ -23,10 +23,6 @@ const Sidebar = () => {
       <NavItem
         icon={<LuFolderArchive className="text-4xl" />}
         path="/dashboard/guides"
-      />
-      <NavItem
-        icon={<LuDollarSign className="text-4xl" />}
-        path="/dashboard/cotizaciones"
       />
     </nav>
   );

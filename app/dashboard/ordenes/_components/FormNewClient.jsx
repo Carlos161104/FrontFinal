@@ -50,57 +50,59 @@ const FormNewClient = () => {
     >
       <h1 className="text-center text-xl">Crear nuevo cliente</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <Input
+      <input
         required={true}
         isRequired
         label="Nombre"
         value={client.name || ""}
-        placeholder="Ej. Marco"
+        placeholder="Nombre"
         name="name"
         onChange={handleChange}
+        className="border border-gray-300 p-2 rounded w-full mr-3"
       />
-      <Input
+      <input
         required={true}
+        className="border border-gray-300 p-2 rounded w-full mr-3"
         isRequired
         label="Apellido"
         value={client.last_name || ""}
-        placeholder="Ej. Alvarez"
+        placeholder="Apellido"
         name="last_name"
         onChange={handleChange}
       />
-      <Input
+      <input
+      className="border border-gray-300 p-2 rounded w-full mr-3"
         required={true}
-        isRequired
         label="Email"
         value={client.email || ""}
-        placeholder="Ej. ejemplo@gmail.com"
+        placeholder="Email"
         name="email"
         onChange={handleChange}
       />
-      <Input
+      <input
+      className="border border-gray-300 p-2 rounded w-full mr-3"
         required={true}
-        isRequired
         label="Telefono"
         value={client.phone || ""}
-        placeholder="Ej. 5565090525"
+        placeholder="Telefono"
         name="phone"
         onChange={handleChange}
       />
-      <Input
+      <input
+      className="border border-gray-300 p-2 rounded w-full mr-3"
         required={true}
-        isRequired
         label="Compañia"
         value={client.company || ""}
-        placeholder="Ej. Grupo Mava"
+        placeholder="Compañia"
         name="company"
         onChange={handleChange}
       />
       <Select
-        label="Canal de venta"
+        placeholder="Canal de venta"
         name="sales_funnel_id"
         selectedKeys={client.sales_funnel_id ? [client.sales_funnel_id] : []}
         onSelectionChange={handleSelectChange}
-        className="bg-white rounded-lg"
+        className="bg-white rounded-lg p-3"
       >
         {Object.entries(salesFunnels).map(([key, value]) => (
           <SelectItem

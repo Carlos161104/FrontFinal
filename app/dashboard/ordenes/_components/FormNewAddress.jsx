@@ -43,84 +43,95 @@ const FormAddress = () => {
       >
         <h1 className="text-center text-xl">Información de la dirección</h1>
         {error && <p className="text-red-500 text-center">{error}</p>}
-        <Input
+        <label className="text-sm">Por favor, complete todos los campos requeridos.</label>
+        <input
           required
           label="País"
           value={address.country}
-          placeholder="Ej. México"
+          placeholder="Pais"
           name="country"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Estado"
           value={address.state}
-          placeholder="Ej. Jalisco"
+          placeholder="Estado"
           name="state"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Ciudad"
           value={address.city}
-          placeholder="Ej. Guadalajara"
+          placeholder="Ciudad"
           name="city"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Código Postal"
           value={address.postal_code}
-          placeholder="Ej. 44100"
+          placeholder="Cadigo Postal"
           name="postal_code"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Dirección Línea 1"
           value={address.address_line_1}
-          placeholder="Ej. Calle 123"
+          placeholder="Direccion Linea 1"
           name="address_line_1"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           label="Dirección Línea 2 (opcional)"
           value={address.address_line_2}
-          placeholder="Ej. Apartamento 4B"
+          placeholder="Direccion Linea 2 (opcional)"
           name="address_line_2"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           label="Dirección Línea 3 (opcional)"
           value={address.address_line_3}
-          placeholder="Ej. Edificio A"
+          placeholder="Dirección Línea 3 (opcional)"
           name="address_line_3"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           label="Comentarios (opcional)"
           value={address.comments}
-          placeholder="Ej. Entregar en la puerta"
+          placeholder="Comentarios (opcional)"
           name="comments"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Channel ID"
           type="number"
           value={address.channel_id}
-          placeholder="Ej. 1"
+          placeholder="Channel ID"
           name="channel_id"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
-        <Input
+        <input
           required
           label="Client ID"
           type="number"
           value={address.client_id}
-          placeholder="Ej. 123"
+          placeholder="Client ID"
           name="client_id"
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded w-full mr-3"
         />
   
         <Button className="bg-green-300 rounded-lg" type="submit">

@@ -5,18 +5,28 @@ import { LuMinus, LuPlus } from "react-icons/lu";
 import { Button } from "@nextui-org/react";
 
 const FormUpdateSells = ({ newOrder }) => {
+  const [disabled, setDisabled] = useState(false);
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if (items.length === 1) setDisabled(true);
+    else if (items.length > 1) setDisabled(false);
+  }, [items]);
 
   useEffect(() => {
     const fetchSells = async () => {
       try {
         const response = await fetch(`${API_URL}/sells`);
         const sells = await response.json();
-        const filteredSells = sells.filter(sell => sell.order_id === newOrder.id);
+        const filteredSells = sells.filter(
+          (sell) => sell.order_id === newOrder.id
+        );
 
         const detailedSells = await Promise.all(
           filteredSells.map(async (sell) => {
-            const productResponse = await fetch(`${API_URL}/products/${sell.product_id}`);
+            const productResponse = await fetch(
+              `${API_URL}/products/${sell.product_id}`
+            );
             const productData = await productResponse.json();
             const product = productData.data;
 
@@ -71,8 +81,13 @@ const FormUpdateSells = ({ newOrder }) => {
     }
   };
 
+  const removeItem = (index) => {
+    const newItems = items.filter((_, i) => i !== index);
+    setItems(newItems);
+  };
+  
   const addItem = () => {
-    setItems([...items, { id: "", quantity: "", name: ""}]);
+    setItems([...items, { id: "", quantity: "", name: "" }]);
   };
 
   const handleSubmit = () => {
@@ -106,6 +121,7 @@ const FormUpdateSells = ({ newOrder }) => {
             {item.name || "Articulo"}
           </span>
           <button
+            disabled={disabled}
             type="button"
             onClick={() => removeItem(index)}
             className="text-red-500 hover:bg-red-100 p-2 rounded"

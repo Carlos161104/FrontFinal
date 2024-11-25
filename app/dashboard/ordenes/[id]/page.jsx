@@ -44,10 +44,10 @@ const Page = ({ params }) => {
   };
 
   return (
-    <div className="h-screen bg-blue-300 text-center justify-center items-center overflow-y-auto p-10">
+    <div className="h-5/6 bg-blue-300 text-center justify-center items-center overflow-y-auto p-10">
       <UniqueOrderCard order={order} products={products} />
-      <div className="flex flex-row p-10 justify-between">
-        <Button onClick={handleDelete} className="bg-red-500 p-2 rounded-lg"><LuTrash className="text-3xl"/></Button>
+      <div className="flex flex-row p-10 justify-center">
+        <Button onClick={handleDelete} className="bg-red-500 p-2 mx-5 rounded-lg"><LuTrash className="text-3xl"/></Button>
         <ModalUpdateOrder>
           <FormUpdateOrder order={order} />
         </ModalUpdateOrder>
