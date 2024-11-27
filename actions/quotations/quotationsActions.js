@@ -1,5 +1,6 @@
 'use server'
-const API_URL = 'http://localhost:3000';
+
+import { API_URL } from "@/constants";
 
 // Función para generar ID aleatorio
 function generateRandomId() {
