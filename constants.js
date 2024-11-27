@@ -1,1 +1,1 @@
-export const API_URL = "https://serverproyect-1.us-east-1.elasticbeanstalk.com:3000/"
+export const API_URL = "http://serverproyect-1.us-east-1.elasticbeanstalk.com:3000/"
